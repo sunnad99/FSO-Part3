@@ -1,0 +1,14 @@
+{
+  "name": "phonebook",
+  "version": "1.0.0",
+  "description": "Just a backend for a phonebook application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sulaiman Nadeem",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
