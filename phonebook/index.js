@@ -79,3 +79,31 @@ app.delete("/api/persons/:id", (req, res) => {
 
   res.status(204).send(`Successfully deleted person with id ${id}!`);
 });
+
+const generateId = () => {
+  const id = Math.floor(Math.random() * Math.pow(10, 64)); // Calculate a 64 bit integer
+
+  return id;
+};
+
+app.post("/api/persons", (req, res) => {
+  const body = req.body;
+  if (!body.name || !body.number) {
+    res
+      .status(400)
+      .send(
+        "Request body doesn't conform to schema. Should include name AND number"
+      );
+    return;
+  }
+
+  // Add a new person when a proper JSON is provided
+  const newPerson = {
+    id: generateId(),
+    name: body.name,
+    number: body.number,
+  };
+
+  persons.push(newPerson);
+  res.status(201).json(newPerson);
+});
