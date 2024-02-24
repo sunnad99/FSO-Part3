@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const persons = [
+let persons = [
   {
     id: 1,
     name: "Arto Hellas",
@@ -60,4 +60,22 @@ app.get("/api/persons/:id", (req, res) => {
   }
 
   res.json(person);
+});
+
+app.delete("/api/persons/:id", (req, res) => {
+  const id = Number(req.params.id);
+
+  const newPeople = persons.filter((person) => person.id !== id);
+
+  // Id was not found
+  if (newPeople.length === persons.length) {
+    res
+      .status(404)
+      .send(`Could not delete person with id ${id}...they don't exist!`);
+    return;
+  }
+
+  persons = newPeople; // updating persons object
+
+  res.status(204).send(`Successfully deleted person with id ${id}!`);
 });
