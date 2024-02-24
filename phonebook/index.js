@@ -2,7 +2,14 @@ const express = require("express");
 const morgan = require("morgan");
 
 const app = express();
-app.use([express.json(), morgan("tiny")]);
+// Configuring request logger middleware
+morgan.token("body", (req, res) => JSON.stringify(req.body)); // Adding the body token to morgan
+const loggerMiddleWare = morgan(
+  ":method :url :status :res[content-length] - :response-time ms :body"
+);
+
+// Adding all the middleware
+app.use([express.json(), loggerMiddleWare]);
 
 let persons = [
   {
