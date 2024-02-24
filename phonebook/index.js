@@ -26,7 +26,7 @@ const persons = [
   },
 ];
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).send({ message: "Successful" });
 });
 
@@ -37,4 +37,16 @@ app.get("/api/persons", (req, res) => {
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+app.get("/info", (req, res) => {
+  const numOfPeople = persons.length;
+  const timeReceived = new Date();
+  res.send(`<p>
+                Phonebook has info for ${numOfPeople}
+            </p>
+            <br/>
+            <p>
+               ${timeReceived}
+            </p> `);
 });
