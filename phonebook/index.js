@@ -96,11 +96,19 @@ app.post("/api/persons", (req, res) => {
       );
     return;
   }
+  const name = body.name;
+  const existingPerson = persons.find(
+    (person) => person.name.toLowerCase() === name.toLowerCase()
+  );
+  if (existingPerson) {
+    res.status(409).json({ error: "name must be unique" });
+    return;
+  }
 
   // Add a new person when a proper JSON is provided
   const newPerson = {
     id: generateId(),
-    name: body.name,
+    name: name,
     number: body.number,
   };
 
